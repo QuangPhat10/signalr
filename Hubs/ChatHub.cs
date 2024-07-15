@@ -297,7 +297,7 @@ namespace SignalR.Hubs
             var groupRow = list_GrpTable.Rows.Find(groupId);
             if (groupRow != null)
             {
-                var userIds = groupRow["ListJoin"].ToString().Split(',').ToList();
+                var userIds = groupRow["ListMebr"].ToString().Split(',').ToList();
                 foreach (var id in userIds)
                 {
                     if (id == userId) continue;
@@ -305,7 +305,7 @@ namespace SignalR.Hubs
                     foreach (var connectionRow in connectionRows)
                     {
                         var cntnCode = connectionRow["CntnCode"].ToString();
-                        await Clients.Client(cntnCode).SendAsync("ReceiveMessage", message, userId);
+                        await Clients.Client(cntnCode).SendAsync("ReceiveMessage", message);
                     }
                 }
             }
@@ -320,7 +320,7 @@ namespace SignalR.Hubs
                 foreach (var connectionRow in connectionRows)
                 {
                     var cntnCode = connectionRow["CntnCode"].ToString();
-                    await Clients.Client(cntnCode).SendAsync(method, content, userId);
+                    await Clients.Client(cntnCode).SendAsync(method, content);
                 }
             }
         }
